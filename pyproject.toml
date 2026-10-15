@@ -1,0 +1,17 @@
+[project]
+name = "ephys-survey"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "aeon-mecha",
+    "jupyter>=1.1.1",
+    "kilosort>=4.1.7",
+    "pynapple>=0.11.4",
+    "spikeinterface>=0.105.1",
+]
+
+[tool.uv.sources]
+aeon-mecha = { path = "../aeon_mecha" }
+spikeinterface = { path = "../spikeinterface", editable = true }
