@@ -3,15 +3,14 @@ name = "ephys-survey"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
     "aeon-mecha",
     "jupyter>=1.1.1",
     "kilosort>=4.1.7",
     "pynapple>=0.11.4",
-    "spikeinterface>=0.105.1",
+    "spikeinterface>=0.105.2",
 ]
 
 [tool.uv.sources]
-aeon-mecha = { path = "../aeon_mecha" }
-spikeinterface = { path = "../spikeinterface", editable = true }
+aeon-mecha = { git = "https://github.com/chrishalcrow/aeon_mecha", branch = "add-arrow-reader" }
