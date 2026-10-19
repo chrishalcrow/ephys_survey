@@ -1,8 +1,7 @@
 from pathlib import Path
 import spikeinterface.full as si
 import probeinterface as pi
-import pandas as pd
-import numpy as np
+from aeon.dj_pipeline.utils.spike_sorting_utils import read_bonsai_onix_arrow
 
 from .config import experiment_path, epoch_name_to_shank, probe_names
 
@@ -19,7 +18,7 @@ for probe_name in probe_names:
         ephys_path = epoch_path / f'NeuropixelsV2_{probe_name}_0.arrow'
         probe_path = list(epoch_path.glob('*.json'))[0]
 
-        rec = si.unsigned_to_signed(si.read_bonsai_onix_arrow(str(ephys_path), sampling_frequency=30_000))
+        rec = si.unsigned_to_signed(read_bonsai_onix_arrow(str(ephys_path), sampling_frequency=30_000))
 
         probe = pi.read_probeinterface(probe_path)
         rec.set_probegroup(probe)
@@ -46,4 +45,3 @@ for probe_name in probe_names:
 
         unit_quality = si.bombcell_label_units(analyzer)
         analyzer.set_sorting_property(key='bombcell', values = unit_quality['bombcell_label'].values.astype(str))
-
