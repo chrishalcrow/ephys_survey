@@ -3,15 +3,15 @@ import spikeinterface.full as si
 import pandas as pd
 import numpy as np
 import pynapple as nap
-from .config import epoch_name_to_shank, probe_names
+from config import epoch_name_to_shank, probe_names
 
-si.set_global_job_kwargs(n_jobs=4)
+si.set_global_job_kwargs(n_jobs=2)
 
 for probe_name in probe_names:
 
     data_folder = Path(f'processed/{probe_name}')
 
-    for epoch_name, probe_place in epoch_name_to_shank:
+    for epoch_name, probe_place in epoch_name_to_shank.items():
 
         # analyzer stuff
 

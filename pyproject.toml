@@ -5,13 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "aeon-mecha",
     "jupyter>=1.1.1",
     "kilosort>=4.1.7",
     "pandas>=3.0.6",
+    "pyarrow>=26.0.0",
     "pynapple>=0.11.4",
     "spikeinterface>=0.105.2",
 ]
-
-[tool.uv.sources]
-aeon-mecha = { git = "https://github.com/chrishalcrow/aeon_mecha", branch = "add-arrow-reader" }
