@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
-from config import epoch_name_to_shank, probe_names
+from config import epoch_name_to_shank, probe_names, mouse_name
 
 def plot_probe_property(
     property_name='good', 
@@ -17,7 +17,7 @@ def plot_probe_property(
       - Row 1: Bottom bank
     """
     
-    file_pattern=f'processed/{probe_name}/{probe_name}_{{shank}}_quality.csv'
+    file_pattern=f'processed/{mouse_name}/{probe_name}/{probe_name}_{{shank}}_quality.csv'
     
     shanks = ['s1', 's2', 's3', 's4']
     banks = ['top', 'bot']  # row 0 = top, row 1 = bottom
@@ -50,13 +50,6 @@ def plot_probe_property(
     ax.set_title(f'{property_name} Unit Positions')
 
     return fig
-    
-    #fig.suptitle(f"{probe_name}: {property_name.replace('_', ' ').title()}", fontsize=13, fontweight='bold', y=0.99)
-    #fig.tight_layout()
-    #return fig
-
-
-
 
 
 for probe_name in ['ProbeA', 'ProbeB']:
@@ -67,7 +60,5 @@ for probe_name in ['ProbeA', 'ProbeB']:
             color = 'blue'
 
         fig = plot_probe_property(property_name=property_name, probe_name=probe_name, color=color)
-        fig.savefig(f'plots/{probe_name}/{probe_name}_{property_name}_units.png')
-
-
+        fig.savefig(f'plots/{mouse_name}/{probe_name}/{probe_name}_{property_name}_units.png')
 

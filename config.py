@@ -1,6 +1,8 @@
 from pathlib import Path
 
-experiment_path = Path('/ceph/aeon/aeon/data/raw/AEONX1/manual_ProbeSurvey/ProbeSurvey1_M42')
+mouse_name = 'M42'
+
+experiment_path = Path('/ceph/aeon/aeon/data/raw/AEONX1/manual_ProbeSurvey/M42_ProbeSurvey1')
 
 epoch_name_to_shank = {
     '2026-10-20T100636Z': 's1bot',

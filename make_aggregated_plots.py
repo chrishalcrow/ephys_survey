@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
-from config import epoch_name_to_shank, probe_names
+from config import epoch_name_to_shank, probe_names, mouse_name
 
 def plot_probe_property(
     property_name='gamma_power', 
@@ -17,14 +17,14 @@ def plot_probe_property(
       - Row 1: Bottom bank
     """
     
-    file_pattern=f'processed/{probe_name}/{probe_name}_{{shank}}_powers.csv'
+    file_pattern=f'processed/{mouse_name}/{probe_name}/{probe_name}_{{shank}}_powers.csv'
     
     # 2 rows x 4 columns; sharey='row' maintains consistent depth scaling per bank
     fig, axes = plt.subplots(
         2, 4, 
         figsize=(14, 8), 
         sharey='row', 
-        sharex=True
+        sharex='col',
     )
     
     shanks = ['s1', 's2', 's3', 's4']
@@ -38,8 +38,17 @@ def plot_probe_property(
             
             filename = file_pattern.format(shank=shank_key)
             df = pd.read_csv(filename).sort_values('depth')
+            log_vals = np.log10(df[property_name])
+
+            q25, q75 = log_vals.quantile(0.1), log_vals.quantile(0.9)
+            iqr = q75 - q25
+            lower_bound = 10 ** (q25 - 1.5 * iqr)
+            upper_bound = 10 ** (q75 + 1.5 * iqr)
+
             ax.semilogx(df[property_name], df['depth'], color=color, lw=1.4)
             
+            ax.set_xlim(left=lower_bound, right=upper_bound)
+
             # Subplot titles only on the top row, column labels for clarity
             if row_idx == 0:
                 ax.set_title(f"Shank {col_idx + 1}\n(Top Bank)")
@@ -72,4 +81,4 @@ power_bands = {
 for probe_name in ['ProbeA', 'ProbeB']:
     for power_name, plot_color in power_bands.items():
         fig = plot_probe_property(power_name, probe_name = probe_name, color=plot_color)
-        fig.savefig(f'plots/{probe_name}/{probe_name}_agg_{power_name}.png')
+        fig.savefig(f'plots/{mouse_name}/{probe_name}/{probe_name}_agg_{power_name}.png')
