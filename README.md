@@ -27,4 +27,6 @@ And finally make the plots themselves
 
 ```
 uv run make_plots.py
+uv run make_aggregated_plots.py
+uv run make_unit_quality_agg.py
 ```
